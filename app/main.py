@@ -6,7 +6,9 @@ from .config import settings
 from fastapi.middleware.cors import CORSMiddleware
 
 # models.Base.metadata.create_all(bind=engine) # thic line create table with sqlachelmy after every code runs
+
 app = FastAPI()
+
 origin = ['https://www.google.com','https://www.heroku.com']
 #origin = ['*']
 app.add_middleware(
@@ -22,6 +24,7 @@ app.include_router(post.router)
 app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(vote.router)
+
 @app.get("/")
 def root():
     return {"message" : "It is a success"}
