@@ -1,3 +1,4 @@
+import email
 from typing import Optional
 from datetime import datetime
 from typing import Optional
@@ -11,14 +12,29 @@ class PostBase(BaseModel):
     published : bool = False
 
 class User(BaseModel):
+    username: str
     email : EmailStr
     password: str
+    phone_number : str
+    class Config:
+        orm_mode = True
+
+
+class UserBase(BaseModel):
+    username: str
+    email: EmailStr
+    phone_number: str
+    class Config:
+        orm_mode = True
+
 
 class GetUser(BaseModel):
     id: int
     email: EmailStr
     created_at: datetime
-    class Config:
+    phone_number : str
+    username: str
+    class Config:   
         orm_mode = True
 
 

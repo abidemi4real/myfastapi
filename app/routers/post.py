@@ -6,7 +6,8 @@ from ..database import get_db, engine
 from fastapi import Depends, FastAPI, Response, status, HTTPException, APIRouter
 
 router = APIRouter(
-    prefix= "/posts"
+    prefix= "/posts",
+    tags = ['Post']
 )
 
 # get all post
@@ -74,7 +75,7 @@ def update_post(id: int, updated_post:schema.PostBase, db: Session = Depends(get
     # cursor.execute("""UPDATE posts SET title= %s, content= %s, published = %s WHERE id = %s  RETURNING* """, (post.title, post.content, post.published, str(id)))
     # updated_post= cursor.fetchone()
     # conn.commit()
-
+    
     post_query = db.query(models.Post).filter(models.Post.id == id)
     post = post_query.first()
     if post == None:
@@ -86,8 +87,5 @@ def update_post(id: int, updated_post:schema.PostBase, db: Session = Depends(get
 
     post_query.update(updated_post.dict(), synchronize_session = False)
     db.commit()
-
-    #post_dict = post.dict()
-    #post_dict['id'] = id
-    #my_post[index] = post_dict
+    print(post_query.first())
     return  post_query.first()

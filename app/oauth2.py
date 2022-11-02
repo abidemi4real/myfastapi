@@ -10,6 +10,7 @@ from . import schema
 from .config import settings
 
 
+
 oauth_schema =  OAuth2PasswordBearer(tokenUrl='login')
 SECRET_KEY = settings.secret_key
 ALGORITHM = settings.algorithm
